@@ -179,11 +179,11 @@ class WASMbindgenAsset extends Asset {
           const fetchPromise = fetch(wasm_path);
           let resultPromise;
           if (typeof WebAssembly.instantiateStreaming === 'function') {
-              resultPromise = WebAssembly.instantiateStreaming(fetchPromise, { './${rustName}': __exports });
+              resultPromise = WebAssembly.instantiateStreaming(fetchPromise, { './${rustName}.js': __exports });
           } else {
               resultPromise = fetchPromise
               .then(response => response.arrayBuffer())
-              .then(buffer => WebAssembly.instantiate(buffer, { './${rustName}': __exports }));
+              .then(buffer => WebAssembly.instantiate(buffer, { './${rustName}.js': __exports }));
           }
           return resultPromise.then(({instance}) => {
               wasm = init.wasm = instance.exports;
